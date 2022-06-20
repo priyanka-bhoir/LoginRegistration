@@ -112,7 +112,8 @@ public class Registration extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     dialog.cancel();
-                                    startActivity(new Intent(getApplicationContext(), MainPage.class));
+                                    Intent i = new Intent(getApplicationContext(), MainPage.class);
+                                    startActivity(i);
                                     finish();
                                 }
                             });
