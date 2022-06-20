@@ -35,12 +35,11 @@ import java.util.Map;
 
 public class Registration extends AppCompatActivity {
 
-    TextInputLayout nameLayout,emailLayout,phoneLayout,passwordLayout,confPassLayout;
-    TextInputEditText nameEditTxt,emailEditTxt,phoneEditTxt,passwordEditTxt,confPassEditTxt;
-    String name,email,phone,password,confPassword;
+    TextInputLayout nameLayout,emailLayout,passwordLayout,confPassLayout;
+    TextInputEditText nameEditTxt,emailEditTxt,passwordEditTxt,confPassEditTxt;
+    String name,email,password,confPassword;
     Button button,goToLogin;
     FirebaseAuth fAuth;
-    RadioButton adminRadio,userRadio;
     private String TAG="Registration";
 //    SharedPref sharedPref;
     String author;
@@ -56,17 +55,14 @@ public class Registration extends AppCompatActivity {
         nameEditTxt=findViewById(R.id.namedittxt);
         emailLayout=findViewById(R.id.emaillayout);
         emailEditTxt=findViewById(R.id.emailedittxt);
-        phoneEditTxt.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
         passwordLayout=findViewById(R.id.passwordlayout);
         passwordEditTxt=findViewById(R.id.passwordexitxt);
         confPassLayout=findViewById(R.id.confpasslayot);
         confPassEditTxt=findViewById(R.id.confmtxt);
         button=findViewById(R.id.submittodb);
-        adminRadio=findViewById(R.id.adminRadio);
-        userRadio=findViewById(R.id.userradio);
         goToLogin=findViewById(R.id.gotologin);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://loginregistration-62a4b-default-rtdb.firebaseio.com/");
 
 
         fAuth=FirebaseAuth.getInstance();
@@ -85,19 +81,14 @@ public class Registration extends AppCompatActivity {
             public void onClick(View view) {
                 name=nameEditTxt.getText().toString();
                 email=emailEditTxt.getText().toString();
-                phone=phoneEditTxt.getText().toString();
                 password=passwordEditTxt.getText().toString();
                 confPassword=confPassEditTxt.getText().toString();
-                Log.e(TAG, "onClick: "+phone+" || "+ name );
                 if (name.isEmpty()){
                     nameLayout.setError("Empty");
                     nameEditTxt.requestFocus();
                 }else if (!Patterns.EMAIL_ADDRESS.matcher((email)).matches()){
                     emailLayout.setError("Empty");
                     emailEditTxt.requestFocus();
-                }else if (phone.isEmpty()){
-                    phoneEditTxt.requestFocus();
-                    phoneLayout.setError("Empty");
                 }else if (confPassword.isEmpty()){
                     confPassEditTxt.requestFocus();
                     confPassLayout.setError("Empty");
